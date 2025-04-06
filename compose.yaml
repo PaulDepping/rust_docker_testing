@@ -10,14 +10,8 @@ services:
     depends_on:
       server:
         condition: service_started
-    build:
-      dockerfile: client.Dockerfile
-  client2:
-    image: "pd_dockertest/client"
-    environment:
-      CLIENT_CONNECT_URL: "server:30900"
-    depends_on:
-      server:
-        condition: service_started
+    deploy:
+      mode: replicated
+      replicas: 6 # 6 instances at once
     build:
       dockerfile: client.Dockerfile
