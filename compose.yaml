@@ -1,0 +1,23 @@
+services:
+  server:
+    image: "pd_dockertest/server"
+    build:
+      dockerfile: server.Dockerfile
+  client:
+    image: "pd_dockertest/client"
+    environment:
+      CLIENT_CONNECT_URL: "server:30900"
+    depends_on:
+      server:
+        condition: service_started
+    build:
+      dockerfile: client.Dockerfile
+  client2:
+    image: "pd_dockertest/client"
+    environment:
+      CLIENT_CONNECT_URL: "server:30900"
+    depends_on:
+      server:
+        condition: service_started
+    build:
+      dockerfile: client.Dockerfile
